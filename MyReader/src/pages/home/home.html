@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>News Reader</ion-title>
+    <ion-buttons end> 
+      <!-- atributo "end" indica que botão será posicionado à direita -->
+      <!-- atributo "start" posicionaria o botão à esquerda -->
+      <button ion-button icon-only (click)="showFilters()" >
+          <span [style.color]="filtroAtivo ? 'orange' : 'inherit'"> {{ filtroAtivo ? filtro : "Filtrar" | lowercase }} </span>
+          <ion-icon name="funnel" [style.color]="filtroAtivo ? 'orange' : 'inherit'"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-searchbar placeholder="Busca" (ionInput)="updateNews($event)" item-down [(ngModel)]="query"></ion-searchbar>  
+</ion-header>
+
+<ion-content>  
+  
+  <ion-list *ngIf='statusFlag == "ok" && noticias.length > 0; else semConteudo'>    
+    <!-- <button ion-item *ngFor="let feed of (news | async)?.articles" (click)="itemSelected(feed.url)"> -->
+    <button ion-item *ngFor="let feed of noticias" (click)="itemSelected(feed.url)">
+      <!-- incluir eventos html dentro de parênteses é chamado de "Event Binding" no Angular.  -->
+      <ion-thumbnail  item-left>        
+          <img *ngIf="feed.urlToImage; else imgAlternative" [src]="feed.urlToImage">
+          <ng-template #imgAlternative>
+            <img src="assets/imgs/logo.png" alt="{{ feed.title }}">
+          </ng-template>
+        <!-- atributo 'src' com colchetes se chama "Property Binding" para atribuir uma propriedade da view ao valor de uma expressão -->
+      </ion-thumbnail>
+      <h2>{{ feed.title }}</h2>
+      <p>{{feed.source.name}}</p>
+    </button>
+  </ion-list>
+
+  <ng-template #semConteudo>
+    <h2 class="center">Conteúdo indisponível</h2>
+    <!-- <p>{{ data.message }}</p> -->
+    <p>{{ statusFlag }}</p>
+  </ng-template>
+
+  <!-- <ion-infinite-scrool (ionInfinite)='buscaMaisInfinito($event)'>
+    <ion-infinite-scrool-content loadingText='Carregando mais notícias...'></ion-infinite-scrool-content>
+  </ion-infinite-scrool> -->
+</ion-content>
