@@ -1,0 +1,34 @@
+
+<!-- Este é o menu lateral -->
+<!--
+	[content] é a propriedade usada para definir um conteudo desde componente ion-menu,
+	nesse caso a variavel 'conteudo', que foi definida no ion-nav, sendo ele mesmo
+-->
+<ion-menu [content]="conteudo">
+	<!-- Barra de titulo do menu -->
+	<ion-header>
+		<ion-toolbar>
+			<ion-title></ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<!-- Itens que são exibidos no menu -->
+	<ion-content>
+		<ion-list *ngIf="menus.length > 0">
+			<ion-item *ngFor="let p of menus">
+				
+				<h3>{{p.title}}</h3>
+				<ion-list *ngIf="p.componentes.length > 0">
+					<button ion-item *ngFor="let item of p.componentes" (click)="openPage(item.page)">
+						{{item.title}}
+					</button>
+				</ion-list>
+				
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-menu>
+
+<!-- Aqui é carregada a pagina root, definida no app.component.ts -->
+<!-- swipeBackEnabled propriedade que permite deslizar left->right para voltar a page anterior-->
+<!-- [root] é a propriedade que vai carregar a pagina dentro do ion-nav, enquanto #conteudo é a variavel que representa o ion-nav  -->
+<ion-nav id="nav" #conteudo [root]="rootPage"></ion-nav>

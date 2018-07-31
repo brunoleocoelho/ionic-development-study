@@ -1,0 +1,85 @@
+<!--
+  Generated template for the ClienteNovoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Novo Cliente</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+		<ion-item>
+			<ion-label color="primary" stacked>Razão Social</ion-label>
+			<ion-input [(ngModel)]="cliente.NOME" required></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary" stacked>Nome Fantasia</ion-label>
+			<ion-input [(ngModel)]="cliente.NREDUZ" required></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">CNPJ/CPF:</ion-label>
+			<ion-input [(ngModel)]="cliente.CGC" required></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">Inscr.Estadual:</ion-label>
+			<ion-input [(ngModel)]="cliente.INSCR"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">Tipo:</ion-label>
+			<ion-select [(ngModel)]="cliente.TIPO" required>
+				<ion-option value="F">Pessoa Física</ion-option>
+				<ion-option value="J">Pessoa Jurídica</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">Contato:</ion-label>
+			<ion-input [(ngModel)]="cliente.CONTATO"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">Telefone:</ion-label>
+			<ion-input [(ngModel)]="cliente.TEL"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">E-mail:</ion-label>
+			<ion-input [(ngModel)]="cliente.EMAIL"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary" stacked>Endereço:</ion-label>
+			<ion-input [(ngModel)]="cliente.ENDER" required></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">Bairro:</ion-label>
+			<ion-input [(ngModel)]="cliente.BAIRRO"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">Cidade:</ion-label>
+			<ion-input [(ngModel)]="cliente.MUN" required></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">Estado:</ion-label>
+			<ion-input [(ngModel)]="cliente.EST"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary">CEP:</ion-label>
+			<ion-input [(ngModel)]="cliente.CEP"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary" stacked>Obs.:</ion-label>
+			<ion-textarea [(ngModel)]="cliente.OBS" rows="3"></ion-textarea>
+		</ion-item>
+	</ion-list>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar text-center>
+		<button ion-button round color="secondary" (click)="criarCliente()">Salvar</button>
+		<button ion-button round color="light" (click)="voltar()">Cancelar</button>
+	</ion-toolbar>
+</ion-footer>

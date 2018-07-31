@@ -182,13 +182,13 @@ export class HomePage {
 		for (var i = 0; i < this.sources.length; i++) {
 			var button = {
 				text: this.sources[i],
-				handler: MyFunction.bind(this, i)				
+				handler: AplicaFiltro.bind(this, i)				
 			}
 			actionSheet.addButton(button);
 		}
 		
 		//função local para fltragem 
-		function MyFunction(n):void {
+		function AplicaFiltro(n):void {
 			this.filtroAtivo = true;
 			this.filtro = this.sources[n];
 			var listaFiltro: any[] = this.semFilter.filter((elem, idx) => this.filtro === elem.source.name);
