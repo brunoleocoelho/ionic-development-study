@@ -39,7 +39,7 @@ export class Cliente {
     ESTE: string;
     CEPE: string;
     SUFRAMA: string;
-    OBS: string;
+    OBSERV: string; //Modificado de OBS p/ OBSERV
 
     /**  */
     constructor() {
@@ -78,6 +78,6 @@ export class Cliente {
         this.ESTE = '';
         this.CEPE = '';
         this.SUFRAMA = '';
-        this.OBS = '';
+        this.OBSERV = '';
     }
 }

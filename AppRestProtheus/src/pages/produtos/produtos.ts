@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { ServiceRestProvider } from '../../providers/service-rest/service-rest';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 	templateUrl: 'produtos.html',
 })
 export class ProdutosPage {
+	loader: Loading;
 	dados: any;
 	produtos: any;
 
@@ -28,15 +29,21 @@ export class ProdutosPage {
 		console.log('ionViewDidLoad ProdutosPage');
 	}
 
+	/** Carrega os produtos ativos da base */
 	loadProdutos(){
-		this.presentLoading();
+		this.createLodaing();
+		this.loader.present();
 		this.servico.getProdutosLista().subscribe(
 			ok =>{
 				console.log("ProdutosPage:loadProdutos:ok", ok);
 				this.dados = ok;
 				this.fillProdutos()				
+				this.loader.dismiss();
 			},
-			err => console.log("ProdutosPage:loadProdutos:err", err)
+			err =>{
+				console.log("ProdutosPage:loadProdutos:err", err)
+				this.loader.dismiss();
+			}
 		)
 	}
 
@@ -48,12 +55,12 @@ export class ProdutosPage {
 	}
 
 	/** Exibe um elemtento loading */
-	presentLoading() {
-		const loader = this.loadingCtrl.create({
-			content: '<ion-spinner name="crescent">Carregando...</ion-spinner>',
-			duration: 1000
-		});
-		loader.present();
+	createLodaing() {
+		this.loader = this.loadingCtrl.create({
+			spinner: 'crescent',
+			content: 'Carregando...'//'<ion-spinner name="crescent">Carregando...</ion-spinner>'
+			// duration: 1000
+		});		
 	}
 
 	/** Abre pagina com detelhes do produto */

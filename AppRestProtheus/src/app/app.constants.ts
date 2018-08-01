@@ -46,10 +46,13 @@ export const Res = {
          * Os campos que não sofrerem alteração devem ser passados nulo.
         */
         CLIENTE_ALTERAR: "/clientes/alterar"
+
+
     }    
 }
 
 /* Para Testes
+
     HOST: "http://localhost/restprotheus/Fontes",
     PRODUTO_TODOS_ATIVOS: "/Produtos/index.php",
     CLIENTE_TODOS_ATIVOS: "/Clientes/index.php",

@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Nav, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Nav, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceRestProvider } from '../../providers/service-rest/service-rest';
-import { Res } from '../../app/app.constants';
+import { Usuario } from '../../models/usuario';
 
 /**
  * Generated class for the LoginPage page.
@@ -18,12 +18,14 @@ import { Res } from '../../app/app.constants';
 	templateUrl: 'login.html',
 })
 export class LoginPage {
+	loader: Loading;
 	dados: any;
+	usuario: Usuario;
 	user: string;
 	pwd: string;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, 
-	private clienteHttp: HttpClientModule, private alertCtrl: AlertController) {
+	private clienteHttp: HttpClientModule, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
 		this.user = '';
 		this.pwd = '';
 	}
@@ -32,30 +34,61 @@ export class LoginPage {
 		console.log('ionViewDidLoad LoginPage');
 	}
 
+	/** Exibe um elemtento loading */
+	createLodaing() {
+		this.loader = this.loadingCtrl.create({
+			spinner: 'dots',
+			content: 'Fazendo Login...'//'<ion-spinner name="dots">Fazendo Login...</ion-spinner>'
+			// duration: 1000
+		});
+	}
+	
 	/** Efetua o Login do usuário */
 	fazerLogIn() {
+		//exibindo imagem de loading
+		this.createLodaing();
+		this.loader.present();
+		//enviando dados de login
 		if (this.user.length == 0 || (this.pwd.length == 0)) {
-			this.showAlertaLogin('Entrada Inválida!','Usuário e Senha devem ser preenchidos');
+			this.showAlertaLogin('Entrada Inválida!','Usuário e Senha devem ser preenchidos.');
 		}
 		else{
 			this.servico.logUserIn(this.user, this.pwd).subscribe(
 				data => {
 					console.log("LoginPage:fazerLogin:data: ", data);
 					this.dados = data;
-					this.checkLogin()
+					this.checkLogin() //verifica retorno de login
+					//removendo exibição do loading
+					this.loader.dismiss();
 				},
 				err => {
 					console.log("LoginPage:fazerLogin:err: ", err);
 					this.showAlertaLogin('Erro de rede!','Não foi possível verificar Usuario e Senha.');
+					//removendo exibição do loading
+					this.loader.dismiss();
 				}
 			)
 		}
 	}
 	
-	//verifica se os dados retornados são válidos para login
+	/** Verifica se os dados retornados são válidos para login */
 	checkLogin(){
 		if (this.dados.Status != 1) {
-			this.navCtrl.push(HomePage, {user: this.user, pwd: this.pwd});
+			this.usuario = this.dados.Usuario;
+			if (this.usuario != null) {
+				if (this.usuario.USRNAME == this.user.toLowerCase() && !this.usuario.BLOQUEIO) {
+					// this.navCtrl.pop().then( ()=> this.navCtrl.push(HomePage, {usuario: this.usuario}) );
+					this.navCtrl.push(HomePage, {usuario: this.usuario}).then(()=>{
+						let index = 0;
+						this.navCtrl.remove(index);
+					});
+				}
+				else{
+					this.showAlertaLogin('Erro de Usuário/Senha', 'Usuário não condiz com o registrado na base. Verifique!');
+					console.log('LoginPage:CheckLogin:dados.Usuario:', this.dados.Usuario)
+				}
+			}
+			// this.loader.dismiss();
 		} else {
 			this.showAlertaLogin('Erro de Usuário/Senha', this.dados.Descricao + ' Verifique!');
 		}

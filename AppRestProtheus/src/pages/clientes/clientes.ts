@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, Refresher } from 'ionic-angular';
 import { ServiceRestProvider } from '../../providers/service-rest/service-rest';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
+import { Cliente } from '../../models/cliente';
+import { ClienteDetalhesPage } from '../cliente-detalhes/cliente-detalhes';
 
 /**
  * Generated class for the ClientesPage page.
@@ -17,46 +19,71 @@ import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
 	templateUrl: 'clientes.html',
 })
 export class ClientesPage {
-
+	loader: Loading;
+	refresh: Refresher;
 	dados : any;
-	clientes: any[];//Array<Cliente> 
+	clientes: Array<Cliente> ;
+	textoErro: string;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, private httpCliente: HttpClientModule, private loadingCtrl: LoadingController) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, private loadingCtrl: LoadingController) {
 		this.getDados();
 	}
-
+	
+	/* Chamado após término do carregamento da view */
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad ClientesPage');
 	}
-
+	
 	/** Exibe um elemtento loading */
-	presentLoading() {
-		const loader = this.loadingCtrl.create({
-			content: '<ion-spinner name="crescent">Carregando...</ion-spinner>',
-			duration: 1000
+	createLodaing() {
+		this.loader = this.loadingCtrl.create({
+			spinner: 'crescent',
+			content: 'Carregando...'//'<ion-spinner name="crescent">Carregando...</ion-spinner>'
+			// duration: 1000
 		});
-		loader.present();
+		this.loader.present();
 	}
-
+	
 	/** Preenche os clientes na tela */
 	fillClientes(){
 		if (this.dados.Descricao == "OK") {
 			this.clientes = this.dados.Clientes;
 		}
 	}
-
+	
 	/** Carrega os clientes pelo service ServiceClienteProvider */
 	getDados(){
-		this.presentLoading();
+		this.createLodaing();
 		console.log("ClientesPage: Clicou getDados()");
 		this.servico.getClientesTodos().subscribe( 
 			data => {
 				this.dados = data;
-				this.fillClientes();
 				console.log("Data Clientes:Service: ", this.dados);
+				this.fillClientes();
+				this.loader.dismiss();
+				this.completeRefresh();
 			},
-			erro => { console.log("Erro Clientes:Service: ", erro); }
+			erro => { 
+				console.log("Erro Clientes:Service: ", erro); 
+				this.textoErro = "Erro ao buscar clientes";
+				this.loader.dismiss();
+				this.completeRefresh();
+			}
 		);	
+	}
+
+	/** Chamado pelo pull-to-refresh */
+	doRefresh(refresher){
+		this.refresh = refresher;
+		console.log('Begin async operation', refresher);
+		this.getDados();		
+	}
+	/** Finaliza o refresher */
+	completeRefresh(){
+		if (this.refresh != null) {
+			this.refresh.complete();
+			this.refresh = null;			
+		}
 	}
 
 	/** Navega p/ a pagina de detalhes do cliente */
@@ -67,7 +94,7 @@ export class ClientesPage {
 	}
 
 	/** Vai para detalhes do cliente */
-	goToAnotherPage(item){
-		console.log("Detalhes do cliente", item.NOME)
+	goToAnotherPage(item){		
+		this.navCtrl.push(ClienteDetalhesPage, {cliente: item});
 	}
 }

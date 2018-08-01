@@ -24,8 +24,19 @@
 
 <!-- ION-CONTENT é o conteudo da pagina -->
 <ion-content class="conteudo-home" padding>
+	
+	<!-- Refresher -->
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content
+		pullingIcon="arrow-down"
+		pullingText="Puxe para atualizar"
+		refreshingSpinner="dots"
+		refreshingText="Atualizando...">
+		</ion-refresher-content>
+	</ion-refresher>
 
-	<div *ngIf="clientes != null; else erroclientes" >
+	<!-- Lista de Clientes -->
+	<div *ngIf="clientes != null; else erroclientes">
 		<ion-card *ngFor="let cl of clientes" (click)="goToAnotherPage(cl)">
 			<ion-card-header>
 				{{cl.NREDUZ}}
@@ -41,7 +52,7 @@
 	</div>
 
 	<ng-template #erroclientes>
-		<h4 text-center color="info"> Erro ao buscar clientes </h4>
+		<h5 style="text-align:center;">{{textoErro}}</h5>
 	</ng-template>
 
 	<!-- Botão Redondo p/ Add Cliente -->
@@ -50,6 +61,5 @@
 			<ion-icon name="add"></ion-icon>
 		</button>
 	</ion-fab>
-	
+
 </ion-content>
-	

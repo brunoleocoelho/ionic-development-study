@@ -12,7 +12,7 @@ import { ClientesPage } from '../pages/clientes/clientes';
 import { ServiceRestProvider } from '../providers/service-rest/service-rest';
 import { ProdutosPage } from '../pages/produtos/produtos';
 import { ClienteNovoPage } from '../pages/cliente-novo/cliente-novo';
-
+import { ClienteDetalhesPage } from '../pages/cliente-detalhes/cliente-detalhes';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,7 @@ import { ClienteNovoPage } from '../pages/cliente-novo/cliente-novo';
     HomePage,
     ClientesPage,
     ClienteNovoPage,
+    ClienteDetalhesPage,
     ProdutosPage
   ],
   imports: [
@@ -35,6 +36,7 @@ import { ClienteNovoPage } from '../pages/cliente-novo/cliente-novo';
     HomePage,
     ClientesPage,
     ClienteNovoPage,
+    ClienteDetalhesPage,
     ProdutosPage
   ],
   providers: [
