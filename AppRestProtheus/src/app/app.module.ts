@@ -13,7 +13,7 @@ import { ServiceRestProvider } from '../providers/service-rest/service-rest';
 import { ProdutosPage } from '../pages/produtos/produtos';
 import { ClienteNovoPage } from '../pages/cliente-novo/cliente-novo';
 import { ClienteDetalhesPage } from '../pages/cliente-detalhes/cliente-detalhes';
-
+import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 @NgModule({
   declarations: [
     MyApp,
@@ -43,7 +43,8 @@ import { ClienteDetalhesPage } from '../pages/cliente-detalhes/cliente-detalhes'
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ServiceRestProvider
+    ServiceRestProvider,
+    BarcodeScanner
   ]
 })
 export class AppModule {}

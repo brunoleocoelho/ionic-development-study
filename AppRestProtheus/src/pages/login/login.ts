@@ -34,7 +34,7 @@ export class LoginPage {
 		console.log('ionViewDidLoad LoginPage');
 	}
 
-	/** Exibe um elemtento loading */
+	/** Exibe um elemento loading */
 	createLodaing() {
 		this.loader = this.loadingCtrl.create({
 			spinner: 'dots',
@@ -47,12 +47,12 @@ export class LoginPage {
 	fazerLogIn() {
 		//exibindo imagem de loading
 		this.createLodaing();
-		this.loader.present();
 		//enviando dados de login
 		if (this.user.length == 0 || (this.pwd.length == 0)) {
-			this.showAlertaLogin('Entrada Inválida!','Usuário e Senha devem ser preenchidos.');
+            this.showAlertaLogin('Entrada Inválida!','Usuário e Senha devem ser preenchidos.');            
 		}
 		else{
+            this.loader.present();
 			this.servico.logUserIn(this.user, this.pwd).subscribe(
 				data => {
 					console.log("LoginPage:fazerLogin:data: ", data);

@@ -54,7 +54,7 @@ export class ProdutosPage {
 		}
 	}
 
-	/** Exibe um elemtento loading */
+	/** Exibe um elemento loading */
 	createLodaing() {
 		this.loader = this.loadingCtrl.create({
 			spinner: 'crescent',

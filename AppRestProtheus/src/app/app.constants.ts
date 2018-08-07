@@ -11,13 +11,15 @@ export const Res = {
     },
     /** Strings das URLs usadas */
     Urls: {
-
+        /**URL BASE REST DO HOST */
         /** URL com IP, porta e destino da conexão com o serviço REST */
         HOST: "http://10.0.0.108:8624/rest",
         
+        /**USUARIOS */
         /** Deve-se incluir parametros 'usr' e 'pwd' */
         LOGIN_USUARIO: "/loginuser?",
 
+        /** PRODUTOS */
         PRODUTO_DETALHE: "/produtos/",           //substituido '?tipo=1'
         PRODUTO_TODOS_ATIVOS: "/produtos/lista", //substituido '?tipo=2'
         /** Deve-se incluir parametro 'codprod' */
@@ -28,6 +30,7 @@ export const Res = {
         PRODUTOOPCOES_GRUPOS: "/ProdutoOpcoes?buca=2",
         PRODUTOOPCOES_ARMAZENS: "/ProdutoOpcoes?busca=3",
 
+        /** CLIENTES */
         /** Deve-se incluir 'codcliente' a ser buscado (obrigatorio) */
         CLIENTE_DETALHE: "/clientes?",
         /** Lista todos os clientes ativos na base */
@@ -47,17 +50,16 @@ export const Res = {
         */
         CLIENTE_ALTERAR: "/clientes/alterar"
 
-
     }    
 }
 
 /* Para Testes
 
-    HOST: "http://localhost/restprotheus/Fontes",
-    PRODUTO_TODOS_ATIVOS: "/Produtos/index.php",
-    CLIENTE_TODOS_ATIVOS: "/Clientes/index.php",
-    LOGIN_USUARIO: "/Usuarios/index.php?",
-
+        HOST: "http://localhost/restprotheus/Fontes",
+        PRODUTO_TODOS_ATIVOS: "/Produtos/index.php",
+        CLIENTE_TODOS_ATIVOS: "/Clientes/index.php",
+        LOGIN_USUARIO: "/Usuarios/index.php?",
+    
     Estados: {
         AC: "Acre"                ,
         AL: "Alagoas"             , 

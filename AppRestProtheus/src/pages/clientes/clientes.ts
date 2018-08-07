@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
 import { Cliente } from '../../models/cliente';
 import { ClienteDetalhesPage } from '../cliente-detalhes/cliente-detalhes';
-
+import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 /**
  * Generated class for the ClientesPage page.
  *
@@ -23,9 +23,11 @@ export class ClientesPage {
 	refresh: Refresher;
 	dados : any;
 	clientes: Array<Cliente> ;
-	textoErro: string;
+    textoErro: string;
+    codigolido: any = "";
+    errolido: any = "";
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, private loadingCtrl: LoadingController) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, private loadingCtrl: LoadingController, private barCodScanner: BarcodeScanner) {
 		this.getDados();
 	}
 	
@@ -34,7 +36,7 @@ export class ClientesPage {
 		console.log('ionViewDidLoad ClientesPage');
 	}
 	
-	/** Exibe um elemtento loading */
+	/** Exibe um elemento loading */
 	createLodaing() {
 		this.loader = this.loadingCtrl.create({
 			spinner: 'crescent',
@@ -96,5 +98,16 @@ export class ClientesPage {
 	/** Vai para detalhes do cliente */
 	goToAnotherPage(item){		
 		this.navCtrl.push(ClienteDetalhesPage, {cliente: item});
-	}
+    }
+    
+    /** Abre o leitor de codigo de barras */
+    scanBarCode(){
+        this.barCodScanner.scan()
+        .then(
+            barCodeData =>{ this.codigolido = barCodeData.text },
+        )
+        .catch(
+            err => { this.errolido = err }
+        )
+    }
 }

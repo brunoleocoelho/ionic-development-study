@@ -35,6 +35,12 @@
 		</ion-refresher-content>
 	</ion-refresher>
 
+    <div>
+        <button ion-button (click)="scanBarCode()" block>SCAN</button>
+        <p>{{codigolido}}</p>
+        <p>{{errolido}}</p>
+    </div>
+
 	<!-- Lista de Clientes -->
 	<div *ngIf="clientes != null; else erroclientes">
 		<ion-card *ngFor="let cl of clientes" (click)="goToAnotherPage(cl)">

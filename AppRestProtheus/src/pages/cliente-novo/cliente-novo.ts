@@ -36,6 +36,9 @@ export class ClienteNovoPage {
 		if (this.cliente.NOME != '' && this.cliente.NREDUZ != '' && this.cliente.ENDER != '' 
 			&& this.cliente.TIPO != '' && this.cliente.EST != '' && this.cliente.MUN != ''
 			&& this.cliente.CGC != '') {
+			//Acresenta 'App' no inicio da Observação
+			var aux = this.cliente.OBSERV;
+			this.cliente.OBSERV = "App:" + aux;
 
 			this.servico.postClienteIncluir(this.cliente).subscribe(
 				resposta =>{ 
@@ -60,7 +63,7 @@ export class ClienteNovoPage {
 		this.navCtrl.popToRoot();
 	}
 
-	/** Exibe um elemtento loading */
+	/** Exibe um elemento loading */
 	createLodaing() {
 		this.loader = this.loadingCtrl.create({
 			spinner: 'crescent',
