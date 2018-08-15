@@ -79,7 +79,8 @@ export class ClientesPage {
 		this.refresh = refresher;
 		console.log('Begin async operation', refresher);
 		this.getDados();		
-	}
+    }
+    
 	/** Finaliza o refresher */
 	completeRefresh(){
 		if (this.refresh != null) {
@@ -102,12 +103,23 @@ export class ClientesPage {
     
     /** Abre o leitor de codigo de barras */
     scanBarCode(){
-        this.barCodScanner.scan()
+        this.barCodScanner.scan({
+            orientation: 'landscape',
+            showFlipCameraButton: true,
+            showTorchButton: true,
+            prompt: "Posicione o codigo de barras sob a linha"
+        })
         .then(
-            barCodeData =>{ this.codigolido = barCodeData.text },
+            barCodeData =>{ 
+                console.log("ClientesPage:scanBarCode:barCodeData:", barCodeData);
+                this.codigolido = barCodeData.text;
+            },
         )
         .catch(
-            err => { this.errolido = err }
+            err => { 
+                console.log("ClientesPage:scanBarCode:barCodeData:", err);
+                this.errolido = err; 
+            }
         )
     }
 }

@@ -30,8 +30,9 @@
 	
 				<ion-item-divider color="light">{{p.title}}</ion-item-divider>
 				<div *ngIf="p.componentes.length > 0">
-					<button ion-item *ngFor="let item of p.componentes" (click)="openPage(item.page)">					
-						{{item.title}}
+                    <button ion-item *ngFor="let item of p.componentes" (click)="openPage(item.page)">					
+                        <ion-icon name="{{item.icone}}" item-left></ion-icon>
+                        <span text-capitalize>{{item.title}}</span>
 					</button>
 				</div>
 				

@@ -22,7 +22,7 @@ export class HomePage {
 	usuario: Usuario;	
 	menus: Array<{ title: string, componentes: any }>;
 
-	/** CONTRUTOR */
+	/** CONSTRUTOR */
 	constructor(
 		public menu: MenuController,
 		public navCtrl: NavController, 
@@ -35,14 +35,14 @@ export class HomePage {
 			{
 				title: 'Consultar',
 				componentes: [
-					{ title: 'Clientes', page: ClientesPage },
-					{ title: 'Produtos', page: ProdutosPage }
+					{ title: 'Clientes', page: ClientesPage, icone: 'podium' },
+					{ title: 'Produtos', page: ProdutosPage, icone: 'pricetags' }
 				]
 			},
 			{
 				title: 'Cadastrar',
 				componentes: [
-					{ title: 'Clientes', page: ClienteNovoPage }					
+					{ title: 'Cliente', page: ClienteNovoPage, icone: 'podium' }
 				]
 			}
 		];
