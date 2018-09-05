@@ -17,10 +17,13 @@ export const Res = {
         
         /**USUARIOS */
         /** Deve-se incluir parametros 'usr' e 'pwd' */
-        LOGIN_USUARIO: "/loginuser?",
+        LOGIN_USUARIO: "/loginuser",
 
         /** PRODUTOS */
+        
+        /** Traz apenas um produto, sendo necessario passar seu codigo após url */
         PRODUTO_DETALHE: "/produtos/",           //substituido '?tipo=1'
+        /** Lista todos os produtos ativos na base */
         PRODUTO_TODOS_ATIVOS: "/produtos/lista", //substituido '?tipo=2'
         /** Deve-se incluir parametro 'codprod' */
         PRODUTO_ALTERA: "/produtos?tipo=4",        
@@ -31,6 +34,7 @@ export const Res = {
         PRODUTOOPCOES_ARMAZENS: "/ProdutoOpcoes?busca=3",
 
         /** CLIENTES */
+        
         /** Deve-se incluir 'codcliente' a ser buscado (obrigatorio) */
         CLIENTE_DETALHE: "/clientes?",
         /** Lista todos os clientes ativos na base */
@@ -48,7 +52,15 @@ export const Res = {
          * 
          * Os campos que não sofrerem alteração devem ser passados nulo.
         */
-        CLIENTE_ALTERAR: "/clientes/alterar"
+        CLIENTE_ALTERAR: "/clientes/alterar",
+
+        
+        /** PEIDOS DE VENDA */
+
+        /** Dados passados como objeto JSON via POST HTTP_BODY, conforme classe PedidoVenda
+         * Para inclusão de um novo Pedido de venda na base
+         */
+        PEDIDOVENDA_INCLUIR: "/pedidovenda/novo"
 
     }    
 }

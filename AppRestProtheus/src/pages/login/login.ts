@@ -57,7 +57,9 @@ export class LoginPage {
 				data => {
 					console.log("LoginPage:fazerLogin:data: ", data);
 					this.dados = data;
-					this.checkLogin() //verifica retorno de login
+                    this.checkLogin() //verifica retorno de login
+                    //armazenar login efetuado localmente
+                    //https://www.youtube.com/watch?time_continue=13&v=dewZD47BpTY
 					//removendo exibição do loading
 					this.loader.dismiss();
 				},

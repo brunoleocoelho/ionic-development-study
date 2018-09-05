@@ -14,6 +14,8 @@ import { ProdutosPage } from '../pages/produtos/produtos';
 import { ClienteNovoPage } from '../pages/cliente-novo/cliente-novo';
 import { ClienteDetalhesPage } from '../pages/cliente-detalhes/cliente-detalhes';
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
+import { PedidosVendaPage } from '../pages/pedidos-venda/pedidos-venda';
+import { PedidoVendaNovoPage } from '../pages/pedido-venda-novo/pedido-venda-novo';
 @NgModule({
   declarations: [
     MyApp,
@@ -22,7 +24,9 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner";
     ClientesPage,
     ClienteNovoPage,
     ClienteDetalhesPage,
-    ProdutosPage
+    ProdutosPage,
+    PedidosVendaPage,
+    PedidoVendaNovoPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,9 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner";
     ClientesPage,
     ClienteNovoPage,
     ClienteDetalhesPage,
-    ProdutosPage
+    ProdutosPage,
+    PedidosVendaPage,
+    PedidoVendaNovoPage
   ],
   providers: [
     StatusBar,

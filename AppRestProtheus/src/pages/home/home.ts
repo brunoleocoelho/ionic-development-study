@@ -4,6 +4,7 @@ import { ClientesPage } from '../clientes/clientes';
 import { ProdutosPage } from '../produtos/produtos';
 import { Usuario } from '../../models/usuario';
 import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
+import { PedidosVendaPage } from '../pedidos-venda/pedidos-venda';
 
 /**
  * HomePage vai conter o menu lateral, e exbir cada uma das views
@@ -36,6 +37,7 @@ export class HomePage {
 				title: 'Consultar',
 				componentes: [
 					{ title: 'Clientes', page: ClientesPage, icone: 'podium' },
+					{ title: 'Pedidos de Venda', page: PedidosVendaPage, icone: 'open' },
 					{ title: 'Produtos', page: ProdutosPage, icone: 'pricetags' }
 				]
 			},
