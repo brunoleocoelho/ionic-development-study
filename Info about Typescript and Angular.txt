@@ -1,0 +1,35 @@
+#TYPESCRYPT & ANGULAR
+
+##INITIAL EXPLANATION
+https://www.youtube.com/watch?v=o8ohKbQVxBA
+
+    TYPESCRIPT: Language developed by Microsoft, based on JavaScript. It's compatible
+    with features and native resources of Javascript.
+    
+    ANGULAR: Framework developed by Google, also based on JavaScript, to help and 
+    improve development of SPAs (Single Page Applications).
+
+
+##LINKS AND EXPLANATIONS
+Below are explanation found in web about topics in both
+    
+    5 KEY BENEFITS OF ANGULAR AND TYPESCRIPT
+    https://blog.codewithdan.com/2017/08/26/5-key-benefits-of-angular-and-typescript/
+    
+    TYPESCRIPT - TUTORIAL PLAYLIST
+    https://www.youtube.com/playlist?list=PL62G310vn6nGg5OzjxE8FbYDzCs_UqrUs
+    
+    TYPESCRIPT - IN 5 MINUTES
+    http://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
+    
+    TYPESCRIPT - CONVERSION MADE TRHOUGH JAVASCIPT TO TYPESCRIPT
+    https://www.youtube.com/watch?v=yn1IScE-TQQ
+    
+    TYPESCRIPT - FRAMEWORKS USING TYPESRIPT
+    http://www.typescriptlang.org/samples/index.html
+    
+    ANGULAR - TUTORIAL PLAYLIST
+    https://www.youtube.com/playlist?list=PLGxZ4Rq3BOBoSRcKWEdQACbUCNWLczg2G
+    
+    ANGULAR - STYLE GUIDE
+    https://angular.io/guide/styleguide
