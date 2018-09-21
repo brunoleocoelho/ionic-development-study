@@ -10,7 +10,7 @@ import { Res } from '../../app/app.constants';
 */
 @Injectable()
 export class ServiceRestProvider {
-	//private url: string = "";
+	//public user: string = "";
 
 	/** CONSTRUTOR */
 	constructor(public http: HttpClient) {
@@ -40,7 +40,7 @@ export class ServiceRestProvider {
      * * https://angularfirebase.com/lessons/http-with-angular-quick-start/                 
     */
     logUserIn(usr, pwd){
-        var url = Res.Urls.HOST + Res.Urls.LOGIN_USUARIO ; // + 'usr='+ usr + '&pwd=' + pwd;
+        var url = Res.Urls.HOST + Res.Urls.LOGIN_USUARIO  + '?usr='+ usr + '&pwd=' + pwd;
 
         let headers = new HttpHeaders().set('Authorization','Basic '+ btoa( usr +':'+ pwd ));
                
