@@ -4,7 +4,7 @@ import { HomePage } from '../home/home';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceRestProvider } from '../../providers/service-rest/service-rest';
 import { Usuario } from '../../models/usuario';
-
+import { AppGlobals } from "../../app/app.globals";
 /**
  * Generated class for the LoginPage page.
  *
@@ -20,12 +20,12 @@ import { Usuario } from '../../models/usuario';
 export class LoginPage {
 	loader: Loading;
 	dados: any;
-	usuario: Usuario;
+	//usuario: Usuario;
 	user: string;
 	pwd: string;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, 
-	private clienteHttp: HttpClientModule, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+	private clienteHttp: HttpClientModule, private alertCtrl: AlertController, private loadingCtrl: LoadingController, public _usuario: AppGlobals) {
 		this.user = '';
 		this.pwd = '';
 	}
@@ -76,11 +76,12 @@ export class LoginPage {
 	/** Verifica se os dados retornados são válidos para login */
 	checkLogin(){
 		if (this.dados.Status != 1) {
-			this.usuario = this.dados.Usuario;
-			if (this.usuario != null) {
-				if (this.usuario.USRNAME == this.user.toLowerCase() && !this.usuario.BLOQUEIO) {
+			this._usuario.setUsuario( this.dados.Usuario );
+			if (this._usuario.usuario != null) {
+				if (this._usuario.usuario.USRNAME == this.user.toLowerCase() && !this._usuario.usuario.BLOQUEIO) {
+					this._usuario.setPwd(this.pwd);
 					// this.navCtrl.pop().then( ()=> this.navCtrl.push(HomePage, {usuario: this.usuario}) );
-					this.navCtrl.push(HomePage, {usuario: this.usuario}).then(()=>{
+					this.navCtrl.push(HomePage).then(()=>{ //, {usuario: this._usuario.usuario}
 						let index = 0;
 						this.navCtrl.remove(index);
 					});

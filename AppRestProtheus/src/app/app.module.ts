@@ -16,6 +16,7 @@ import { ClienteDetalhesPage } from '../pages/cliente-detalhes/cliente-detalhes'
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { PedidosVendaPage } from '../pages/pedidos-venda/pedidos-venda';
 import { PedidoVendaNovoPage } from '../pages/pedido-venda-novo/pedido-venda-novo';
+import { AppGlobals } from "./app.globals";
 @NgModule({
   declarations: [
     MyApp,
@@ -48,6 +49,7 @@ import { PedidoVendaNovoPage } from '../pages/pedido-venda-novo/pedido-venda-nov
   providers: [
     StatusBar,
     SplashScreen,
+    AppGlobals,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ServiceRestProvider,
     BarcodeScanner

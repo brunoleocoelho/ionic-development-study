@@ -6,6 +6,7 @@ import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
 import { Cliente } from '../../models/cliente';
 import { ClienteDetalhesPage } from '../cliente-detalhes/cliente-detalhes';
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
+import { AppGlobals } from '../../app/app.globals';
 /**
  * Generated class for the ClientesPage page.
  *
@@ -27,7 +28,8 @@ export class ClientesPage {
     codigolido: any = "";
     errolido: any = "";
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, private loadingCtrl: LoadingController, private barCodScanner: BarcodeScanner) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, 
+		private loadingCtrl: LoadingController, private barCodScanner: BarcodeScanner, private _usuario: AppGlobals) {
 		this.getDados();
 	}
 	
@@ -57,7 +59,8 @@ export class ClientesPage {
 	getDados(){
 		this.createLodaing();
 		console.log("ClientesPage: Clicou getDados()");
-		this.servico.getClientesTodos().subscribe( 
+		console.log("ClientesPage: getAuth()", this._usuario.getAuth());
+		this.servico.getClientesTodos(this._usuario.getAuth()).subscribe( 
 			data => {
 				this.dados = data;
 				console.log("Data Clientes:Service: ", this.dados);

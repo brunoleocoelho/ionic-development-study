@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Res } from '../../app/app.constants';
+import { Usuario } from '../../models/usuario';
 
 /*
   Generated class for the ServiceRestProvider provider.
@@ -48,8 +49,9 @@ export class ServiceRestProvider {
 	}
 
 	/** Recupera da base todos os clientes ativos */
-	getClientesTodos() {
+	getClientesTodos(autent: string) {
 		var url = Res.Urls.HOST + Res.Urls.CLIENTE_TODOS_ATIVOS;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ autent);
 		return this.http.get(url);
 	}
 

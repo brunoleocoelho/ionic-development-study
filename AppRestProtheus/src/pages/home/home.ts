@@ -5,6 +5,7 @@ import { ProdutosPage } from '../produtos/produtos';
 import { Usuario } from '../../models/usuario';
 import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
 import { PedidosVendaPage } from '../pedidos-venda/pedidos-venda';
+import { AppGlobals } from "../../app/app.globals";
 
 /**
  * HomePage vai conter o menu lateral, e exbir cada uma das views
@@ -28,9 +29,11 @@ export class HomePage {
 		public menu: MenuController,
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
-		public loadingCtrl: LoadingController
+		public loadingCtrl: LoadingController,
+		private _usuario: AppGlobals
 	) {
-		this.usuario = this.navParams.get('usuario');		
+		this.usuario = _usuario.usuario;//this.navParams.get('usuario');		
+		console.log("USUARIO na HomePage", this.usuario);
 		// set app's menus
 		this.menus = [
 			{
