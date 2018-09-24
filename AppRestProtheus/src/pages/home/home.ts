@@ -6,6 +6,7 @@ import { Usuario } from '../../models/usuario';
 import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
 import { PedidosVendaPage } from '../pedidos-venda/pedidos-venda';
 import { AppGlobals } from "../../app/app.globals";
+import { MenuPage } from '../menu/menu';
 
 /**
  * HomePage vai conter o menu lateral, e exbir cada uma das views
@@ -19,7 +20,7 @@ export class HomePage {
 	@ViewChild(Nav) nav: Nav;
 	
 	//pagina principal
-	rootPage = ClientesPage;
+	rootPage = MenuPage;
 
 	usuario: Usuario;	
 	menus: Array<{ title: string, componentes: any }>;
@@ -35,23 +36,10 @@ export class HomePage {
 		this.usuario = _usuario.usuario;//this.navParams.get('usuario');		
 		console.log("USUARIO na HomePage", this.usuario);
 		// set app's menus
-		this.menus = [
-			{
-				title: 'Consultar',
-				componentes: [
-					{ title: 'Clientes', page: ClientesPage, icone: 'podium' },
-					{ title: 'Pedidos de Venda', page: PedidosVendaPage, icone: 'open' },
-					{ title: 'Produtos', page: ProdutosPage, icone: 'pricetags' }
-				]
-			},
-			{
-				title: 'Cadastrar',
-				componentes: [
-					{ title: 'Cliente', page: ClienteNovoPage, icone: 'podium' }
-				]
-			}
-		];
+		this.menus = this._usuario.menus;
+        
 		console.log("HomePage: Usuario entrou: ", this.usuario.NOME);
+		console.log("HomePage: Menus: ", this._usuario.menus);
 	}
 
 	/** Redireciona para outra page */

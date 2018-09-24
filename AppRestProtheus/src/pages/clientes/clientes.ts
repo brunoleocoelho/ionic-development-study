@@ -60,7 +60,7 @@ export class ClientesPage {
 		this.createLodaing();
 		console.log("ClientesPage: Clicou getDados()");
 		console.log("ClientesPage: getAuth()", this._usuario.getAuth());
-		this.servico.getClientesTodos(this._usuario.getAuth()).subscribe( 
+		this.servico.getClientesTodos().subscribe( 
 			data => {
 				this.dados = data;
 				console.log("Data Clientes:Service: ", this.dados);

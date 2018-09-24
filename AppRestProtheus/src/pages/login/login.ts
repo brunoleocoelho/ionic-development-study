@@ -5,6 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServiceRestProvider } from '../../providers/service-rest/service-rest';
 import { Usuario } from '../../models/usuario';
 import { AppGlobals } from "../../app/app.globals";
+import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
+import { ProdutosPage } from '../produtos/produtos';
+import { PedidosVendaPage } from '../pedidos-venda/pedidos-venda';
+import { ClientesPage } from '../clientes/clientes';
 /**
  * Generated class for the LoginPage page.
  *
@@ -26,12 +30,13 @@ export class LoginPage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, 
 	private clienteHttp: HttpClientModule, private alertCtrl: AlertController, private loadingCtrl: LoadingController, public _usuario: AppGlobals) {
-		this.user = '';
-		this.pwd = '';
+		this.user = 'joaosilva';
+		this.pwd = '123456';
 	}
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad LoginPage');
+        console.log('ionViewDidLoad LoginPage');
+        this.fazerLogIn();
 	}
 
 	/** Exibe um elemento loading */
@@ -79,7 +84,8 @@ export class LoginPage {
 			this._usuario.setUsuario( this.dados.Usuario );
 			if (this._usuario.usuario != null) {
 				if (this._usuario.usuario.USRNAME == this.user.toLowerCase() && !this._usuario.usuario.BLOQUEIO) {
-					this._usuario.setPwd(this.pwd);
+                    this._usuario.setPwd(this.pwd);
+                    this.definirMenus();
 					// this.navCtrl.pop().then( ()=> this.navCtrl.push(HomePage, {usuario: this.usuario}) );
 					this.navCtrl.push(HomePage).then(()=>{ //, {usuario: this._usuario.usuario}
 						let index = 0;
@@ -110,5 +116,26 @@ export class LoginPage {
 		  ]
 		});
 		alert.present();
-	}
+    }
+    
+    definirMenus(){
+        let menu = [
+            {
+                title: 'Consultar',
+                componentes: [
+                    { title: 'Clientes', page: ClientesPage, icone: 'podium' },
+                    { title: 'Pedidos de Venda', page: PedidosVendaPage, icone: 'open' },
+                    { title: 'Produtos', page: ProdutosPage, icone: 'pricetags' }
+                ]
+            },
+            {
+                title: 'Incluir',
+                componentes: [
+                    { title: 'Cliente', page: ClienteNovoPage, icone: 'podium' }
+                ]
+            }
+        ];
+        
+        this._usuario.setMenu(menu);
+    }
 }

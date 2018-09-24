@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Res } from '../../app/app.constants';
 import { Usuario } from '../../models/usuario';
+import { AppGlobals } from "../../app/app.globals";
 
 /*
   Generated class for the ServiceRestProvider provider.
@@ -11,10 +12,10 @@ import { Usuario } from '../../models/usuario';
 */
 @Injectable()
 export class ServiceRestProvider {
-	//public user: string = "";
+    //public user: string = "";
 
 	/** CONSTRUTOR */
-	constructor(public http: HttpClient) {
+	constructor(public http: HttpClient, private _usuario: AppGlobals) {
 		console.log('Hello ServiceRestProvider Provider');
 	}
 
@@ -42,52 +43,57 @@ export class ServiceRestProvider {
     */
     logUserIn(usr, pwd){
         var url = Res.Urls.HOST + Res.Urls.LOGIN_USUARIO  + '?usr='+ usr + '&pwd=' + pwd;
-
         let headers = new HttpHeaders().set('Authorization','Basic '+ btoa( usr +':'+ pwd ));
-               
         return this.http.get( url, { headers });
 	}
 
 	/** Recupera da base todos os clientes ativos */
-	getClientesTodos(autent: string) {
+	getClientesTodos() {
 		var url = Res.Urls.HOST + Res.Urls.CLIENTE_TODOS_ATIVOS;
-		let headers = new HttpHeaders().set('Authorization','Basic '+ autent);
-		return this.http.get(url);
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());
+		return this.http.get(url, { headers });
 	}
 
 	/** Envia alteração de um cliente */
 	putClientesAlterar(cliente) {
-		var url = Res.Urls.HOST + Res.Urls.CLIENTE_ALTERAR;
+        var url = Res.Urls.HOST + Res.Urls.CLIENTE_ALTERAR;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());
+        
 		return this.http.put(
 			url,
 			cliente,
-			{ responseType: 'json' }
+			{ responseType: 'json', headers }
 		);
 	}
 
 	/** Envia um novo cliente no corpo do HTTP, incluindo na base do server */
 	postClienteIncluir(cliente){
-		var url = Res.Urls.HOST + Res.Urls.CLIENTE_INCLUIR;
+        var url = Res.Urls.HOST + Res.Urls.CLIENTE_INCLUIR;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());
+        
 		return this.http.post(
 			url,
 			cliente,
-			{ responseType: 'json'}					
+			{ responseType: 'json', headers }					
 		);
 	}
 
 	/** Carrega lista de produtos ativos */
 	getProdutosLista(){
-		var url = Res.Urls.HOST + Res.Urls.PRODUTO_TODOS_ATIVOS;
-		return this.http.get(url);
+        var url = Res.Urls.HOST + Res.Urls.PRODUTO_TODOS_ATIVOS;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());        
+		return this.http.get(url, { headers });
     }
     
     /** Inclue um novo pedido de venda na base */
     postPedidoVendaNovo(pedido){
         var url = Res.Urls.HOST + Res.Urls.PEDIDOVENDA_INCLUIR;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());
+
         return this.http.post(
             url,
             pedido,
-            { responseType: 'json'}
+            { responseType: 'json', headers }
         )
     }
 }
