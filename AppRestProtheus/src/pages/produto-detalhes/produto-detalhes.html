@@ -1,0 +1,150 @@
+<!--
+  Generated template for the ProdutoDetalhesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Produto Detalhes</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only round [color]="desabilitado ? 'danger' : 'secondary'" (click)="habilitarEdicao()">
+                <!-- {{ desabilitado ? 'Editar' : 'Salvar' }} -->
+                <ion-icon name="{{desabilitado ? 'md-create' : 'checkmark'}}"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="criarNovo()">
+                <ion-icon name="add-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<!-- 
+
+CARMZCOD
+CARMZDESC
+CATIVO
+CCODIGO
+CDESCRICAO
+CGRUPOCOD
+CGRUPODESC
+CTIPOCOD
+CTIPODESC
+CUM
+NSALDO
+
+ -->
+
+<!-- CONTEUDO -->
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label color="primary" stacked>Código</ion-label>
+            <ion-input disabled="true" [(ngModel)]="produto.CCODIGO"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Descrição do Produto</ion-label>
+            <ion-input [disabled]="desabilitado? true : false" [(ngModel)]="produto.CDESCRICAO"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary">Saldo ({{ produto.CUM }}):</ion-label>
+            <ion-input disabled="true" [(ngModel)]="produto.NSALDO"></ion-input>
+        </ion-item>
+
+        <!-- Grupo de Produtos -->
+        <div *ngIf="desabilitado; then grupoVer; else grupoEditar"></div>
+        <ng-template #grupoVer>
+            <ion-item>
+                <ion-label color="primary">Grupo:</ion-label>
+                <ion-input disabled="true" [(ngModel)]="produto.CGRUPODESC" pull-right></ion-input>
+            </ion-item>
+        </ng-template>
+        <ng-template #grupoEditar>
+            <ion-item>
+                <ion-label color="primary" left>Grupo:</ion-label>
+                <ion-select [(ngModel)]="produto.CGRUPODESC">
+                    <ion-option *ngFor="let grupo of gruposProd" [selected]="grupo.CDESC == produto.CGRUPODESC">{{ grupo.CDESC }}</ion-option>
+                </ion-select>
+            </ion-item>
+        </ng-template>
+
+        <!-- Tipos de Produtos -->
+        <div *ngIf="desabilitado; then tipoVer; else tipoEditar"></div>
+        <ng-template #tipoVer>
+            <ion-item>
+                <ion-label color="primary">Tipo:</ion-label>
+                <ion-input disabled="true" [(ngModel)]="produto.CTIPODESC" pull-right></ion-input>
+            </ion-item>
+        </ng-template>
+        <ng-template #tipoEditar>
+            <ion-item>
+                <ion-label color="primary" left>Tipo:</ion-label>
+                <ion-select [(ngModel)]="produto.CTIPODESC">
+                    <ion-option *ngFor="let tipo of tiposProd" [selected]="tipo.CDESCPT == produto.CTIPODESC">{{ tipo.CDESCPT }}</ion-option>
+                </ion-select>
+            </ion-item>
+        </ng-template>
+
+        <!-- Armazens de Produtos -->
+        <div *ngIf="desabilitado; then armazVer; else armazEditar"></div>
+        <ng-template #armazVer>
+            <ion-item>
+                <ion-label color="primary">Armazem:</ion-label>
+                <ion-input disabled="true" [(ngModel)]="produto.CARMZDESC" pull-right></ion-input>
+            </ion-item>
+        </ng-template>
+        <ng-template #armazEditar>
+            <ion-item>
+                <ion-label color="primary" left>Armazem:</ion-label>
+                <ion-select [(ngModel)]="produto.CARMZDESC">
+                    <ion-option *ngFor="let armazem of armazProd" [selected]="armazem.CDESC == produto.CARMZDESC">{{ armazem.CDESC }}</ion-option>
+                </ion-select>
+            </ion-item>
+        </ng-template>
+
+        <!-- 
+        <ion-item>
+            <ion-label color="primary">Contato:</ion-label>
+            <ion-input [disabled]="desabilitado? true : false" [(ngModel)]="produto.CONTATO"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary">Telefone:</ion-label>
+            <ion-input [disabled]="desabilitado? true : false" [(ngModel)]="produto.TEL"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary">E-mail:</ion-label>
+            <ion-input [disabled]="desabilitado? true : false" [(ngModel)]="produto.EMAIL"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Endereço:</ion-label>
+            <ion-input [disabled]="desabilitado? true : false" [(ngModel)]="produto.ENDER"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary">Bairro:</ion-label>
+            <ion-input [disabled]="desabilitado? true : false" [(ngModel)]="produto.BAIRRO"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary">Cidade:</ion-label>
+            <ion-input [disabled]="desabilitado? true : false" [(ngModel)]="produto.MUN"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary">Estado:</ion-label>
+            <ion-input [disabled]="desabilitado? true : false" [(ngModel)]="produto.EST"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary">CEP:</ion-label>
+            <ion-input [disabled]="desabilitado? true : false" [(ngModel)]="produto.CEP"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Obs.:</ion-label>
+            <ion-textarea [disabled]="desabilitado? true : false" [(ngModel)]="produto.OBSERV" rows="3" max="40"></ion-textarea>
+        </ion-item> -->
+    </ion-list>
+	
+	<!-- Botão Redondo p/ Add Produto -->
+	<ion-fab bottom right>
+        <button ion-fab color="primary" (click)="addNovoProduto()">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

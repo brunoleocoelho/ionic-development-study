@@ -19,7 +19,7 @@
         <ion-row *ngFor="let categ of menus">
             <ion-col col-12>
                 <ion-item color="primary">
-                    <p >{{ categ.title }}</p>
+                    <p style="font-weight: bold;">{{ categ.titulo }}</p>
                 </ion-item>
                 
             </ion-col>
@@ -28,7 +28,7 @@
                     <ion-card-header>
                         <ion-icon name="{{item.icone}}"></ion-icon>
                     </ion-card-header>
-                    <ion-card-content>{{ item.title }}</ion-card-content>
+                    <ion-card-content>{{ item.titulo }}</ion-card-content>
                 </ion-card>
             </ion-col>
         </ion-row>

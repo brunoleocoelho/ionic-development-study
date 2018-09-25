@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { ServiceRestProvider } from '../../providers/service-rest/service-rest';
 import { HttpClientModule } from '@angular/common/http';
+import { Produto } from '../../models/produto';
+import { ProdutoDetalhesPage } from '../produto-detalhes/produto-detalhes';
 
 /**
  * Generated class for the ProdutosPage page.
@@ -64,12 +66,14 @@ export class ProdutosPage {
 	}
 
 	/** Abre pagina com detelhes do produto */
-	verDetalhesProduto(produto){
-		console.log("verDetalhesProduto(prod): ", produto);
+	verDetalhesProduto(produto: Produto){
+        // console.log("verDetalhesProduto(prod): ", produto);
+        this.navCtrl.push(ProdutoDetalhesPage, {produto: produto}); // navega para detalhes do produto (c/ back button ativado) passando um Produto
 	}
 
 	/**	Abre formulário para adicionar produto na base */
 	addNovoProduto(){
-		console.log("Clicou addNovoProduto()")
+        console.log("Clicou addNovoProduto()")
+        // this.navCtrl.push(page);
 	}
 }

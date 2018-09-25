@@ -1,10 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ApplicationModule } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ClientesPage } from '../clientes/clientes';
-import { PedidosVendaPage } from '../pedidos-venda/pedidos-venda';
-import { ProdutosPage } from '../produtos/produtos';
-import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
 import { AppGlobals } from "../../app/app.globals";
+import { ClientesPage } from "../clientes/clientes";
 
 /**
  * Generated class for the MenuPage page.
@@ -22,33 +19,20 @@ export class MenuPage {
     titulo: string = 'App Rest Protheus'
     menus: any[];
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private _usuario: AppGlobals) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, private _globals: AppGlobals) {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad MenuPage');
-        this.menus = this._usuario.menus;
-        // [
-        //     {
-        //         title: 'Consultar',
-        //         componentes: [
-        //             { title: 'Clientes', page: ClientesPage, icone: 'people' },
-        //             { title: 'Pedidos de Venda', page: PedidosVendaPage, icone: 'open' },
-        //             { title: 'Produtos', page: ProdutosPage, icone: 'pricetags' }
-        //         ]
-        //     },
-		// 	{
-		// 		title: 'Incluir',
-		// 		componentes: [
-		// 			{ title: 'Cliente', page: ClienteNovoPage, icone: 'podium' }
-		// 		]
-		// 	}
-        // ];
+        // console.log('ionViewDidLoad MenuPage');
+        // this.definirMenus();
+        this.menus = this._globals.menus;
     }
 
     /** Redireciona para a page correta */
     openPage(page) {
-        this.navCtrl.push(page);
+        // console.log("MenuPage.openPage:", page);
+        this.navCtrl.setRoot(page); //vai para pagina, mas considera como root page
+        // this.navCtrl.push( page ); //navega p/ uma pagina, considerando voltar (aparece "<-BACK")
     }
 
 }

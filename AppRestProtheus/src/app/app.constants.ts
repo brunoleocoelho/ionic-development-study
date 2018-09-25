@@ -30,7 +30,7 @@ export const Res = {
 
         PRODUTOOPCOES_TODOS: "/ProdutoOpcoes",
         PRODUTOOPCOES_TIPOS: "/ProdutoOpcoes?busca=1",
-        PRODUTOOPCOES_GRUPOS: "/ProdutoOpcoes?buca=2",
+        PRODUTOOPCOES_GRUPOS: "/ProdutoOpcoes?busca=2",
         PRODUTOOPCOES_ARMAZENS: "/ProdutoOpcoes?busca=3",
 
         /** CLIENTES */

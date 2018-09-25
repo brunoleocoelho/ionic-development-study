@@ -18,18 +18,20 @@ import { PedidosVendaPage } from '../pages/pedidos-venda/pedidos-venda';
 import { PedidoVendaNovoPage } from '../pages/pedido-venda-novo/pedido-venda-novo';
 import { AppGlobals } from "./app.globals";
 import { MenuPage } from '../pages/menu/menu';
+import { ProdutoDetalhesPage } from '../pages/produto-detalhes/produto-detalhes';
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
     HomePage,
+    MenuPage,
     ClientesPage,
     ClienteNovoPage,
     ClienteDetalhesPage,
     ProdutosPage,
     PedidosVendaPage,
     PedidoVendaNovoPage,
-    MenuPage
+    ProdutoDetalhesPage
   ],
   imports: [
     BrowserModule,
@@ -41,13 +43,14 @@ import { MenuPage } from '../pages/menu/menu';
     MyApp,
     LoginPage,
     HomePage,
+    MenuPage,
     ClientesPage,
     ClienteNovoPage,
     ClienteDetalhesPage,
     ProdutosPage,
     PedidosVendaPage,
     PedidoVendaNovoPage,
-    MenuPage
+    ProdutoDetalhesPage
   ],
   providers: [
     StatusBar,

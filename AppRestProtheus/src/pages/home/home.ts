@@ -21,9 +21,9 @@ export class HomePage {
 	
 	//pagina principal
 	rootPage = MenuPage;
-
+    menuPage = MenuPage;
 	usuario: Usuario;	
-	menus: Array<{ title: string, componentes: any }>;
+	menus: Array<{ titulo: string, componentes: any }>;
 
 	/** CONSTRUTOR */
 	constructor(
@@ -31,15 +31,16 @@ export class HomePage {
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		public loadingCtrl: LoadingController,
-		private _usuario: AppGlobals
+		private _globals: AppGlobals
 	) {
-		this.usuario = _usuario.usuario;//this.navParams.get('usuario');		
-		console.log("USUARIO na HomePage", this.usuario);
-		// set app's menus
-		this.menus = this._usuario.menus;
+		this.usuario = _globals.usuario;//this.navParams.get('usuario');		
+		// console.log("USUARIO na HomePage", this.usuario);
+        // set app's menus
+        this.definirMenus();        
+		this.menus = this._globals.menus;
         
-		console.log("HomePage: Usuario entrou: ", this.usuario.NOME);
-		console.log("HomePage: Menus: ", this._usuario.menus);
+		// console.log("HomePage: Usuario entrou: ", this.usuario.NOME);
+		// console.log("HomePage: Menus: ", this._globals.menus);
 	}
 
 	/** Redireciona para outra page */
@@ -50,4 +51,37 @@ export class HomePage {
 		this.nav.setRoot(page);
 	}
 
+    /** define os menus acessiveis pelo usuário no app 
+     * Estrutura do menu: 
+     * {
+     *  titulo (string), 
+     *  componentes (array): {
+     *      titulo (string), 
+     *      page (string), 
+     *      icone (string), 
+     *      nivel (number)
+     *  }
+     * }
+     * 
+    */
+    definirMenus(){
+        let menu = [
+            {
+                titulo: 'Consultar',
+                componentes: [
+                    { titulo: 'Clientes', page: ClientesPage, icone: 'podium' },
+                    { titulo: 'Pedidos de Venda', page: PedidosVendaPage, icone: 'open' },
+                    { titulo: 'Produtos', page: ProdutosPage, icone: 'pricetags' }
+                ]
+            },
+            {
+                titulo: 'Incluir',
+                componentes: [
+                    { titulo: 'Cliente', page: ClienteNovoPage, icone: 'podium' }
+                ]
+            }
+        ];
+        
+        this._globals.setMenu(menu);
+    }
 }

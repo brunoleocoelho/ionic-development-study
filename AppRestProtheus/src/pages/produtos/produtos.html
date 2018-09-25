@@ -24,7 +24,8 @@
 	
 	<ion-list>
 		<ion-item *ngFor="let prod of produtos" (click)="verDetalhesProduto(prod)">
-			{{prod.CDESCRICAO}}
+			<h2>{{prod.CDESCRICAO}}</h2>
+            <p>{{prod.CCODIGO}}</p>
 		</ion-item>
 	</ion-list>
 	

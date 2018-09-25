@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Res } from '../../app/app.constants';
-import { Usuario } from '../../models/usuario';
 import { AppGlobals } from "../../app/app.globals";
 
 /*
@@ -15,8 +14,8 @@ export class ServiceRestProvider {
     //public user: string = "";
 
 	/** CONSTRUTOR */
-	constructor(public http: HttpClient, private _usuario: AppGlobals) {
-		console.log('Hello ServiceRestProvider Provider');
+	constructor(public http: HttpClient, private _globals: AppGlobals) {
+		console.log('ServiceRestProvider Provider');
 	}
 
 	// /* METODOS */
@@ -25,7 +24,7 @@ export class ServiceRestProvider {
     //  * Referência: https://stackoverflow.com/questions/45894628/angular-4-3-httpclient-basic-authorization-not-working
     // */
 	// logUserIn(usr, pwd){
-    //     var url = Res.Urls.HOST + Res.Urls.LOGIN_USUARIO ; // + 'usr='+ usr + '&pwd=' + pwd;
+    //     let url = Res.Urls.HOST + Res.Urls.LOGIN_globals ; // + 'usr='+ usr + '&pwd=' + pwd;
     //     const body = JSON.stringify({usr: usr, pwd: pwd});
     //     let headers = new HttpHeaders();
     //     headers.append("Authorization","Basic "+ btoa("usr:pwd"));
@@ -42,22 +41,22 @@ export class ServiceRestProvider {
      * * https://angularfirebase.com/lessons/http-with-angular-quick-start/                 
     */
     logUserIn(usr, pwd){
-        var url = Res.Urls.HOST + Res.Urls.LOGIN_USUARIO  + '?usr='+ usr + '&pwd=' + pwd;
+        let url = Res.Urls.HOST + Res.Urls.LOGIN_USUARIO  + '?usr='+ usr + '&pwd=' + pwd;
         let headers = new HttpHeaders().set('Authorization','Basic '+ btoa( usr +':'+ pwd ));
         return this.http.get( url, { headers });
 	}
 
 	/** Recupera da base todos os clientes ativos */
 	getClientesTodos() {
-		var url = Res.Urls.HOST + Res.Urls.CLIENTE_TODOS_ATIVOS;
-		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());
+		let url = Res.Urls.HOST + Res.Urls.CLIENTE_TODOS_ATIVOS;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._globals.getAuth());
 		return this.http.get(url, { headers });
 	}
 
 	/** Envia alteração de um cliente */
 	putClientesAlterar(cliente) {
-        var url = Res.Urls.HOST + Res.Urls.CLIENTE_ALTERAR;
-		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());
+        let url = Res.Urls.HOST + Res.Urls.CLIENTE_ALTERAR;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._globals.getAuth());
         
 		return this.http.put(
 			url,
@@ -66,10 +65,10 @@ export class ServiceRestProvider {
 		);
 	}
 
-	/** Envia um novo cliente no corpo do HTTP, incluindo na base do server */
+	/** Envia um novo cliente no corpo do HTTP, incluindo na base de dados no server */
 	postClienteIncluir(cliente){
-        var url = Res.Urls.HOST + Res.Urls.CLIENTE_INCLUIR;
-		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());
+        let url = Res.Urls.HOST + Res.Urls.CLIENTE_INCLUIR;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._globals.getAuth());
         
 		return this.http.post(
 			url,
@@ -80,21 +79,40 @@ export class ServiceRestProvider {
 
 	/** Carrega lista de produtos ativos */
 	getProdutosLista(){
-        var url = Res.Urls.HOST + Res.Urls.PRODUTO_TODOS_ATIVOS;
-		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());        
+        let url = Res.Urls.HOST + Res.Urls.PRODUTO_TODOS_ATIVOS;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._globals.getAuth());        
 		return this.http.get(url, { headers });
+    }
+
+    /** Envia alterações feitas em um produto para a base de dados no server*/
+    putProdutoAlterar(produto){
+        let url = Res.Urls.HOST + Res.Urls.PRODUTO_ALTERA;
+        let headers = new HttpHeaders().set('Authorization', 'Basic'+ this._globals.getAuth());
+        //base não possui PUT implementado, está enviando como POST
+        return this.http.post(
+            url, 
+            produto, 
+            { responseType: 'json', headers }
+        );
     }
     
     /** Inclue um novo pedido de venda na base */
     postPedidoVendaNovo(pedido){
-        var url = Res.Urls.HOST + Res.Urls.PEDIDOVENDA_INCLUIR;
-		let headers = new HttpHeaders().set('Authorization','Basic '+ this._usuario.getAuth());
+        let url = Res.Urls.HOST + Res.Urls.PEDIDOVENDA_INCLUIR;
+		let headers = new HttpHeaders().set('Authorization','Basic '+ this._globals.getAuth());
 
         return this.http.post(
             url,
             pedido,
             { responseType: 'json', headers }
         )
+    }
+
+    /** Busca os grupos, tipos, e armazens de produtos cadastrados no server */
+    getOpcoesProdutos(){
+        let url = Res.Urls.HOST + Res.Urls.PRODUTOOPCOES_TODOS;
+        let headers = new HttpHeaders().set('Authorization','Basic '+ this._globals.getAuth());
+        return this.http.get(url, {headers});
     }
 }
 /** CRIAÇÃO DE UM PROVIDER COM USO DE HTTP EXIGE OS PROCEDIMENTOS:

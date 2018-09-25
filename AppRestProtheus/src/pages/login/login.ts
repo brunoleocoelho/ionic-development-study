@@ -3,12 +3,8 @@ import { IonicPage, NavController, NavParams, Nav, AlertController, LoadingContr
 import { HomePage } from '../home/home';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceRestProvider } from '../../providers/service-rest/service-rest';
-import { Usuario } from '../../models/usuario';
 import { AppGlobals } from "../../app/app.globals";
-import { ClienteNovoPage } from '../cliente-novo/cliente-novo';
-import { ProdutosPage } from '../produtos/produtos';
-import { PedidosVendaPage } from '../pedidos-venda/pedidos-venda';
-import { ClientesPage } from '../clientes/clientes';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -29,13 +25,13 @@ export class LoginPage {
 	pwd: string;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private servico: ServiceRestProvider, 
-	private clienteHttp: HttpClientModule, private alertCtrl: AlertController, private loadingCtrl: LoadingController, public _usuario: AppGlobals) {
+	private clienteHttp: HttpClientModule, private alertCtrl: AlertController, private loadingCtrl: LoadingController, public _globals: AppGlobals) {
 		this.user = 'joaosilva';
 		this.pwd = '123456';
 	}
 
 	ionViewDidLoad() {
-        console.log('ionViewDidLoad LoginPage');
+        // console.log('ionViewDidLoad LoginPage');
         this.fazerLogIn();
 	}
 
@@ -60,7 +56,7 @@ export class LoginPage {
             this.loader.present();
 			this.servico.logUserIn(this.user, this.pwd).subscribe(
 				data => {
-					console.log("LoginPage:fazerLogin:data: ", data);
+					// console.log("LoginPage:fazerLogin:data: ", data);
 					this.dados = data;
                     this.checkLogin() //verifica retorno de login
                     //armazenar login efetuado localmente
@@ -81,13 +77,12 @@ export class LoginPage {
 	/** Verifica se os dados retornados são válidos para login */
 	checkLogin(){
 		if (this.dados.Status != 1) {
-			this._usuario.setUsuario( this.dados.Usuario );
-			if (this._usuario.usuario != null) {
-				if (this._usuario.usuario.USRNAME == this.user.toLowerCase() && !this._usuario.usuario.BLOQUEIO) {
-                    this._usuario.setPwd(this.pwd);
-                    this.definirMenus();
+			this._globals.setUsuario( this.dados.Usuario );
+			if (this._globals.usuario != null) {
+				if (this._globals.usuario.USRNAME == this.user.toLowerCase() && !this._globals.usuario.BLOQUEIO) {
+                    this._globals.setPwd(this.pwd);
 					// this.navCtrl.pop().then( ()=> this.navCtrl.push(HomePage, {usuario: this.usuario}) );
-					this.navCtrl.push(HomePage).then(()=>{ //, {usuario: this._usuario.usuario}
+					this.navCtrl.push(HomePage).then(()=>{ //, {usuario: this._globals.usuario}
 						let index = 0;
 						this.navCtrl.remove(index);
 					});
@@ -116,26 +111,5 @@ export class LoginPage {
 		  ]
 		});
 		alert.present();
-    }
-    
-    definirMenus(){
-        let menu = [
-            {
-                title: 'Consultar',
-                componentes: [
-                    { title: 'Clientes', page: ClientesPage, icone: 'podium' },
-                    { title: 'Pedidos de Venda', page: PedidosVendaPage, icone: 'open' },
-                    { title: 'Produtos', page: ProdutosPage, icone: 'pricetags' }
-                ]
-            },
-            {
-                title: 'Incluir',
-                componentes: [
-                    { title: 'Cliente', page: ClienteNovoPage, icone: 'podium' }
-                ]
-            }
-        ];
-        
-        this._usuario.setMenu(menu);
     }
 }

@@ -25,14 +25,15 @@
 	</ion-header>
 	<!-- Itens que são exibidos no menu -->
 	<ion-content>
+        <button ion-button (click)="openPage(menuPage)" full clear>Voltar Menu Principal</button>
 		<div *ngIf="menus.length > 0">
 			<ion-item-group *ngFor="let p of menus">
 	
-				<ion-item-divider color="light">{{p.title}}</ion-item-divider>
+				<ion-item-divider color="light">{{p.titulo}}</ion-item-divider>
 				<div *ngIf="p.componentes.length > 0">
                     <button ion-item *ngFor="let item of p.componentes" (click)="openPage(item.page)">					
                         <ion-icon name="{{item.icone}}" item-left></ion-icon>
-                        <span text-capitalize>{{item.title}}</span>
+                        <span text-capitalize>{{item.titulo}}</span>
 					</button>
 				</div>
 				
